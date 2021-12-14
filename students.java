@@ -1,65 +1,61 @@
 import java.util.Scanner;
-
-// class student with members, usn, name, array credits, & array marks
-class student{
-    String usn;
-    String name;
-    int n;
-    double SGPA = 0;
-    int totalcredits = 0;
-    int credits[];
-    double marks[];
+class Studentfinal{
+    String USN, name;
+    int credits[], marks[];
+    int no_subs;
+    double sgpa=0.0;
     Scanner in = new Scanner(System.in);
-// accept method
-void accept(){
-    System.out.println("\n enter name of the student");
-    name=in.nextLine();
-    System.out.println("\n enter usn of the student");
-    usn=in.nextLine();
-    System.out.println("\n enter num of the subjects");
-    n=in.nextInt();
-    credits = new int[n];
-    marks = new double[n];
-    System.out.println("\n enter details of the subject");
-    for(int i =0; i<n;i++){
-        System.out.println("\n enter credits of subject "+(i+1));
-        credits[i]=in.nextInt();
-        System.out.println("\n enter marks for subject "+(i+1));
-        marks[i]=in.nextDouble();
-        calculate(credits[i],marks[i],i);
+
+    void accept(){
+        // System.out.println("Enter name : ");
+        // name = in.nextLine();
+        // System.out.println("Enter USN  : ");
+        // USN = in.nextLine(); 
+        System.out.println("Enter number of subjects : ");
+        no_subs = in.nextInt();
+        credits = new int[no_subs];
+        marks = new int[no_subs];
+        for(int i=0;i<no_subs;i++){
+            System.out.format("Enter sub[%d] credits : ",(i+1));
+            credits[i]=in.nextInt();
+            System.out.format("Enter sub[%d] marks : ",(i+1));
+            marks[i] = in.nextInt();
+        }
     }
-}
-// calculate SGPA
-void calculate(int credits, double marks, int j){
-    totalcredits=totalcredits+credits;
-    if(marks>=90 && marks<=100){
-        SGPA=SGPA+(10*credits);
-    } else if(marks>=80 && marks<=90){
-        SGPA=SGPA+(9*credits);
-    } else if(marks>=70 && marks<=80){
-        SGPA=SGPA+(8*credits);
-    } else if(marks>=60 && marks<=70){
-        SGPA=SGPA+(7*credits);
-    } else if(marks>=50 && marks<=60){
-        SGPA=SGPA+(6*credits);
-    } else if(marks>=40 && marks<=50){
-        SGPA=SGPA+(5*credits);
-    } else {
-        System.out.println("Failed in subject "+(j+1));
+    double calc(){
+        int x=0, gp=0,ind_mark=0,sum_credits=0;
+        for(int i=0;i<no_subs;i++){
+            x = marks[i];
+            if(x>90)
+                {gp=10;}
+            else if(x>80 && x<=90)
+                {gp=9;}
+            else if(x>70 && x<=80)
+                {gp=8;}
+            else if(x>60 && x<=70)
+                {gp=7;}
+            else if(x>50 && x<=60)
+                {gp=6;}
+            else if(x>40 && x<=50)
+                {gp=5;}
+            else{
+                System.out.format("Failed in sub[%d]",i+1);
+                gp=0;
+            }
+            System.out.format("SUB[%d] gp = %d\n",i+1,gp);
+            ind_mark=credits[i]*gp;
+            sgpa += ind_mark;
+            sum_credits+=credits[i];
+        }//for loop
+        // System.out.println("SGPA BEFORE DIV = "+sgpa);
+        // System.out.println("NO SUBS = "+no_subs);
+        sgpa=sgpa/sum_credits;
+        return sgpa;
     }
-}
-//display
-void display(){
-    System.out.println("details of the student: ");
-    System.out.println("USN:"+usn);
-    System.out.println("Name:"+name);
-    System.out.println("SGPA:"+totalcredits);
-}
-}
-class students{
     public static void main(String args[]){
-        student s1=new student();
-        s1.accept();
-        s1.display();
+        Studentfinal ob = new Studentfinal();
+        System.out.println("INPUT MARKS : \n");
+        ob.accept();
+        System.out.println("SGPA = "+ob.calc());
     }
 }
