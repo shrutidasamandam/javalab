@@ -1,18 +1,13 @@
-/*Create a base class called “Father” and derived class called “Son” 
-which extends the base class. */
-
 import java.util.Scanner;
 
-/* In Father class, implement a constructor which takes the age and
- throws the exception Wrong Age( ) when the input age<0. */
-
-class Father{
-    public int age1;
+class Father
+{
     Scanner in = new Scanner(System.in);
+    public int age1;
 
     Father()
     {
-        System.out.println("Enter Fathers age: ");
+        System.out.println("Enter father's age");
         age1 = in.nextInt();
     }
 
@@ -25,15 +20,21 @@ class Father{
     }
 }
 
-/*In Son class, implement a constructor that cases both father and son’s
-age and throws an exception if son’s age is >=father’s age.*/
+class fatherAgeException extends Exception
+{
+    public String toString()
+    {
+        return("Father's age is less than 0");
+    }
+}
 
-class Son extends Father{
+class Son extends Father
+{
     public int age2;
 
     Son()
     {
-        System.out.println("Enter Sons age: ");
+        System.out.println("Enter son's age");
         age2 = in.nextInt();
     }
 
@@ -45,15 +46,9 @@ class Son extends Father{
         }
     }
 }
-// exceptions
-class fatherAgeException extends Exception{
-    public String toString()
-    {
-        return("Father's age is less than 0");
-    }
-}
 
-class sonAgeException extends Exception{
+class sonAgeException extends Exception
+{
     int a;
 
     sonAgeException(int age)
@@ -63,21 +58,20 @@ class sonAgeException extends Exception{
 
     public String toString()
     {
-        if (a<0)
+        if(a<0)
         {
             return("Son's age is less than 0");
         } else {
-            return("Son's age is more than father's age");
+            return("Son's age is greater than Father's");
         }
     }
 }
 
-//main 
-class prac{
+class Division{
     public static void main(String args[])
     {
         Son s = new Son();
-        try {
+        try{
             s.ex1();
         } catch (fatherAgeException e) {
             System.out.println(e);
